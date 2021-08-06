@@ -4,6 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 import "../styles/tasklist.scss";
 
 import { FiTrash, FiCheckSquare, FiExternalLink } from "react-icons/fi";
+import { getByTitle } from "@testing-library/react";
 
 interface Task {
   id: number;
@@ -27,6 +28,16 @@ export function TaskList() {
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
+    const newTasks = tasks.map((el) => {
+      if (el.id === id) {
+        return { id: el.id, title: el.title, isComplete: !el.isComplete };
+      } else {
+        return el;
+      }
+    });
+
+    setTasks(newTasks);
+
     // //another way, not working to uptdate state
     // const indexToUpdate = tasks.findIndex((el) => el.id === id);
     // const taskUpdated = {
