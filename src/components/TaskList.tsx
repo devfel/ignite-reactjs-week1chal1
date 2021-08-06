@@ -3,7 +3,7 @@ import { v4 as uuidV4 } from "uuid";
 
 import "../styles/tasklist.scss";
 
-import { FiTrash, FiCheckSquare } from "react-icons/fi";
+import { FiTrash, FiCheckSquare, FiExternalLink } from "react-icons/fi";
 
 interface Task {
   id: number;
@@ -20,16 +20,29 @@ export function TaskList() {
     const newID = Math.floor(Math.random() * (100000 - 0 + 1) + 0);
     if (newTaskTitle != "") {
       const newTask = { id: newID, title: newTaskTitle, isComplete: false };
-      setTasks([...tasks, newTask]);
+      setTasks((oldTasks) => [...oldTasks, newTask]);
+      setNewTaskTitle("");
     }
   }
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
+    // //another way, not working to uptdate state
+    // const indexToUpdate = tasks.findIndex((el) => el.id === id);
+    // const taskUpdated = {
+    //   id: tasks[indexToUpdate].id,
+    //   title: tasks[indexToUpdate].title,
+    //   isComplete: !tasks[indexToUpdate].isComplete, //alternate between true and false
+    // };
+    // let newArray = tasks;
+    // newArray.splice(indexToUpdate, 1, taskUpdated);
+    // setTasks(newArray);
   }
 
   function handleRemoveTask(id: number) {
     // Remova uma task da listagem pelo ID
+    const newTasks = tasks.filter((el) => el.id != id);
+    setTasks(newTasks);
   }
 
   return (
